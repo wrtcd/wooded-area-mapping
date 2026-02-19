@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.eggs/
+
+# Generated outputs
+wooded_binary.tif
+wooded_dl_binary.tif
+*.aux.xml
+
+# Model checkpoints (large; regenerate with train script)
+*.pt
+
+# Large data files (keep in GCS, not in Git)
+data/*.tif
+data/**/*.tif
