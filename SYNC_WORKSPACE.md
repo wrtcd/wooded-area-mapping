@@ -7,6 +7,12 @@ This guide explains how to access your workspace on multiple computers.
 **Best for**: Code, scripts, documentation, configuration files  
 **Not ideal for**: Large data files (TIFFs, model checkpoints)
 
+**Important**: Git syncs **code files only**. The following are **NOT synced**:
+- ❌ Cursor agent conversation history (stored locally per machine)
+- ❌ Cursor settings/preferences (stored locally)
+- ❌ Python virtual environments (`.venv/` - recreate on each machine)
+- ❌ Large data files (use GCS instead)
+
 ### Setup (One-time)
 
 1. **Initialize Git repository** (if not already done):
@@ -200,3 +206,14 @@ git push -u origin main
 ### Python environment differences
 - Always use `requirements.txt` to ensure same packages
 - Virtual environments are local to each computer (not synced)
+
+### Cursor Agent Conversations
+- **Agent conversations are NOT synced** - they're stored locally on each machine
+- Each computer has its own conversation history
+- If you need to reference past conversations, they're stored in:
+  - Windows: `C:\Users\YOUR_USERNAME\.cursor\projects\...\agent-transcripts\`
+  - These are local files, not synced through Git
+- **Solution**: Important decisions/conversations should be documented in:
+  - `README.md` - Project documentation
+  - `GETTING_STARTED.md` - Workflow guides
+  - Code comments - Implementation details

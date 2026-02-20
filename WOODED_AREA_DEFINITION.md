@@ -56,7 +56,8 @@ Define "wooded areas" for manual labeling to ensure consistent ground truth data
 **Edge Cases - How to Handle**:
 
 1. **Shadows**:
-   - **Tree shadows**: Include the shadow area as part of the wooded polygon (shadows indicate trees)
+   - **Tree shadows**: Include the shadow area as part of the wooded polygon when the shadow falls on **ground, grass, or vegetated area** (shadows indicate trees).
+   - **Tree shadows on water, roads, driveways, or pavement**: Label as **non-wooded (0)**. Follow the underlying surface: do not extend the wooded polygon over water bodies, roads, or driveways. This keeps ground truth consistent (water stays water, road stays road) and avoids teaching the model that "dark = wooded" over non-vegetated surfaces.
    - **Cloud shadows**: Exclude (use UDM2 mask)
    - **Building shadows**: Exclude
 
@@ -98,8 +99,9 @@ Define "wooded areas" for manual labeling to ensure consistent ground truth data
 ### Labeling Strategy for 3m Resolution
 
 1. **Use High-Resolution Reference**:
-   - Always reference Google Earth/Maxar (0.3-0.7m) to verify tree height
+   - Always reference Google Earth/Maxar (0.3-0.7m) to verify tree height where possible
    - PlanetScope alone may not show enough detail for height estimation
+   - **Where height is hard to verify** (e.g. in QGIS, or when 3D is not available): using **satellite imagery** (e.g. Google Satellite view) to distinguish **forest vs grassland or other cover types** is an acceptable proxy for "trees ≥5 m" — label as wooded where you clearly see forest canopy/structure, and as non-wooded where you see grassland, crops, or low vegetation
 
 2. **Label at PlanetScope Resolution**:
    - Draw polygons on PlanetScope imagery (3m)
@@ -150,7 +152,7 @@ Define "wooded areas" for manual labeling to ensure consistent ground truth data
    - If no: Skip or label as non-wooded
 
 4. **Polygon Boundaries**:
-   - **Include**: Tree canopy extent + shadows cast by trees
+   - **Include**: Tree canopy extent + tree shadows on ground/vegetation (exclude shadow on water, roads, driveways)
    - **Exclude**: Gaps between trees (if gap is >10m wide)
    - **Edge**: Follow canopy edge, not individual tree trunks
 
@@ -273,7 +275,7 @@ Before you start labeling, decide:
 - Forest patches with >10% canopy cover
 - Tree clusters/groves
 - Orchards (if trees ≥5m)
-- Include tree shadows
+- Include tree shadows on ground/vegetation (not on water, roads, driveways)
 - **Coverage**: Aim for near-full coverage - label every identifiable wooded patch/polygon
 
 **Label as NON-WOODED (0)**:
