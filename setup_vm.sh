@@ -21,16 +21,20 @@ else
     echo "No GPU detected, using CPU"
 fi
 
-# Create project directory
-PROJECT_DIR="$HOME/wooded-area-mapping"
-mkdir -p "$PROJECT_DIR"
+# Determine project directory
+# If script is run from project directory, use current directory
+# Otherwise, create/use ~/wooded-area-mapping
+if [ -f "requirements.txt" ] && [ -f "setup_vm.sh" ]; then
+    PROJECT_DIR="$(pwd)"
+    echo "Using current directory as project directory: $PROJECT_DIR"
+else
+    PROJECT_DIR="$HOME/wooded-area-mapping"
+    mkdir -p "$PROJECT_DIR"
+    echo "Project directory: $PROJECT_DIR"
+    echo "Note: Make sure project files (requirements.txt, *.py) are in this directory"
+    echo "You can upload files using: gcloud compute scp <files> $USER@wooded-mapping-vm:$PROJECT_DIR/"
+fi
 cd "$PROJECT_DIR"
-
-# Clone repository (or copy files)
-echo "Setting up project directory..."
-# If using git:
-# git clone <your-repo-url> .
-# Or copy files manually
 
 # Create virtual environment
 echo "Creating Python virtual environment..."
@@ -59,11 +63,29 @@ echo "Setting up GCS authentication..."
 
 # Test GCS access
 echo "Testing GCS access..."
-python3 -c "from google.cloud import storage; client = storage.Client(); print('GCS access OK')" || echo "Warning: GCS authentication may be needed"
+if python3 -c "from google.cloud import storage; client = storage.Client(); buckets = list(client.list_buckets()); print('GCS access OK! Found', len(buckets), 'buckets')" 2>/dev/null; then
+    echo "✓ GCS authentication successful"
+else
+    echo "⚠ Warning: GCS authentication may be needed"
+    echo "Run: gcloud auth application-default login"
+fi
 
 echo ""
 echo "=== Setup Complete ==="
+echo ""
+echo "Project directory: $PROJECT_DIR"
+echo ""
 echo "Next steps:"
-echo "1. Activate virtual environment: source venv/bin/activate"
-echo "2. Configure GCS credentials (see vm_workflow.md)"
-echo "3. Run training: python train_wooded_multi_scene_gcs.py --bucket YOUR_BUCKET --scene-ids SCENE1 SCENE2 ..."
+echo "1. Activate virtual environment:"
+echo "   source venv/bin/activate"
+echo ""
+echo "2. Test GCS access (if not already working):"
+echo "   gcloud auth application-default login"
+echo ""
+echo "3. List timeseries dates:"
+echo "   python list_timeseries_dates.py --bucket ps4-woodedarea --prefix 2024/"
+echo ""
+echo "4. Train model (after labeling scenes):"
+echo "   python train_wooded_multi_scene_gcs.py --bucket ps4-woodedarea --prefix 2024/ --epochs 50 --output wooded_model.pt"
+echo ""
+echo "See GCP_VM_SETUP_GUIDE.md for detailed instructions."

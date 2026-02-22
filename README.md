@@ -344,6 +344,7 @@ pip install -r requirements.txt
 
 ## Additional Resources
 
+- **Before you proceed**: See `BEFORE_YOU_PROCEED.md` to verify project, bucket, and VM cost habits
 - **Getting Started**: See `GETTING_STARTED.md` for step-by-step workflow guide
 - **VM Setup Guide**: See `vm_workflow.md` for detailed GCP VM deployment instructions
 - **GCS Utilities**: See `gcs_utils.py` for streaming functions

@@ -10,6 +10,8 @@ You've already set up your GCS bucket with timeseries data. Here's your step-by-
 
 Before training, you need to create **reference rasters** (ground truth labels) for 3-10 scenes.
 
+**→ For a focused “start today” workflow**, see **[LABELING_TODAY.md](LABELING_TODAY.md)** (list scenes, download, label in QGIS, upload).
+
 ### 1.1 Select Scenes to Label
 
 Choose **3-10 scenes** spanning different seasons from your timeseries:

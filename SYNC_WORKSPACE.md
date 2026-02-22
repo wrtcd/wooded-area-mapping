@@ -105,7 +105,7 @@ This guide explains how to access your workspace on multiple computers.
 1. Clone Git repository → Get all code/scripts
 2. Download data from GCS as needed:
    ```bash
-   gsutil -m cp gs://your-bucket/scenes/*.tif ./data/
+   gsutil -m cp gs://ps4-woodedarea/2024/*.tif ./data/
    ```
 3. Run scripts → Results stay local or upload to GCS
 
@@ -164,8 +164,8 @@ This guide explains how to access your workspace on multiple computers.
    ```
 
 4. **Keep data in GCS** (already set up):
-   - Download scenes as needed: `gsutil cp gs://your-bucket/scenes/*.tif ./data/`
-   - Upload results: `gsutil cp ./results/*.tif gs://your-bucket/results/`
+   - Download scenes as needed: `gsutil cp gs://ps4-woodedarea/2024/*.tif ./data/`
+   - Upload results: `gsutil cp ./results/*.tif gs://ps4-woodedarea/results/`
 
 ---
 

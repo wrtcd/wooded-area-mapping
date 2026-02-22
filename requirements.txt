@@ -1,6 +1,12 @@
-numpy>=1.20
-rasterio>=1.2
-gdown>=5.0
-torch>=1.9
-google-cloud-storage>=2.0
-google-cloud-auth>=2.0
+# Python 3.7+ required
+# Core dependencies
+numpy>=1.20.0
+rasterio>=1.2.0
+torch>=1.9.0
+
+# Google Cloud Storage
+google-cloud-storage>=2.0.0
+google-cloud-auth>=2.0.0
+
+# Utilities
+gdown>=5.0.0

@@ -2,6 +2,14 @@
 
 Guide for deploying and running the wooded area mapping pipeline on Google Cloud Platform (GCP) Virtual Machines.
 
+## ⚠️ Cost lesson – always stop or delete VMs
+
+**Previous VM instances were left running by mistake and cost about $20. Those instances have been shut down and deleted.** When using GCP VMs:
+
+- **Always stop** the VM when you finish: `gcloud compute instances stop wooded-mapping-vm --zone=us-central1-a`
+- Or **delete** the VM when done to avoid ongoing disk cost and accidental charges
+- Set billing alerts in [GCP Billing](https://console.cloud.google.com/billing)
+
 ## Prerequisites
 
 - Google Cloud Platform account
@@ -125,8 +133,8 @@ python train_wooded_multi_scene.py \
 
 ```bash
 python train_wooded_multi_scene_gcs.py \
-    --bucket your-bucket-name \
-    --prefix scenes/ \
+    --bucket ps4-woodedarea \
+    --prefix 2024/ \
     --scene-ids 20240110_162648_67_247d 20240415_162648_67_247d \
     --epochs 50 \
     --batch-size 16 \
@@ -136,8 +144,8 @@ python train_wooded_multi_scene_gcs.py \
 **Auto-detect scenes with reference rasters:**
 ```bash
 python train_wooded_multi_scene_gcs.py \
-    --bucket your-bucket-name \
-    --prefix scenes/ \
+    --bucket ps4-woodedarea \
+    --prefix 2024/ \
     --epochs 50 \
     --output wooded_model.pt
 ```
@@ -146,8 +154,8 @@ python train_wooded_multi_scene_gcs.py \
 
 ```bash
 python predict_wooded_batch_gcs.py \
-    --bucket your-bucket-name \
-    --prefix scenes/ \
+    --bucket ps4-woodedarea \
+    --prefix 2024/ \
     --model wooded_model.pt \
     --output-prefix predictions/ \
     --compute-metrics
