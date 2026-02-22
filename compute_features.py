@@ -144,14 +144,16 @@ def compute_features(
 
     if include_ndvi:
         ndvi = compute_ndvi(red, nir)
-        # Normalize NDVI to 0-1 range
+        # Normalize NDVI to 0-1 range; fill NaN (e.g. 0/0) with 0 to avoid training NaNs
         ndvi = np.clip((ndvi + 1) / 2, 0, 1).astype(np.float32)
+        ndvi = np.nan_to_num(ndvi, nan=0.0, posinf=1.0, neginf=0.0)
         features_list.append(ndvi[np.newaxis, ...])
 
     if include_evi:
         evi = compute_evi(blue, red, nir)
-        # Normalize EVI to 0-1 range (EVI typically -1 to 1)
+        # Normalize EVI to 0-1 range; fill NaN with 0 to avoid training NaNs
         evi = np.clip((evi + 1) / 2, 0, 1).astype(np.float32)
+        evi = np.nan_to_num(evi, nan=0.0, posinf=1.0, neginf=0.0)
         features_list.append(evi[np.newaxis, ...])
 
     if include_savi:

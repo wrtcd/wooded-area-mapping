@@ -339,14 +339,23 @@ def main():
 
         for x, y, mask in loader:
             x, y, mask = x.to(device), y.to(device), mask.to(device)
+            # Skip batches with no valid pixels to avoid NaN loss
+            if mask.sum() < 1:
+                continue
             opt.zero_grad()
             logits = model(x)
             loss_per_px = criterion(logits, y)
             loss = (loss_per_px * mask).sum() / (mask.sum() + 1e-8)
+            if torch.isnan(loss) or torch.isinf(loss):
+                continue
             loss.backward()
+            torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
             opt.step()
             running_loss += loss.item()
             n_batches += 1
+        if n_batches == 0:
+            print(f"Epoch {epoch+1}/{args.epochs}  (no valid batches, skipping)")
+            continue
 
         avg_loss = running_loss / max(n_batches, 1)
         
