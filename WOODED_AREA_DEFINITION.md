@@ -238,6 +238,14 @@ Since you're labeling **3-10 scenes spanning different seasons**, ensure consist
    - Use leaf-on scenes as reference for leaf-off scenes
 3. **Document Decisions**: Note any edge cases or ambiguous areas for reference
 
+**Peak-of-season dates (Alabama / Northern Hemisphere)** for choosing scenes:
+- **Winter**: ~Jan 20 – Feb 10 (dormant, leaf-off)
+- **Spring**: ~Apr 25 – May 10 (green-up)
+- **Summer**: ~Jul 15 – Aug 1 (full leaf-on, peak biomass)
+- **Fall**: ~Oct 15 – Oct 30 (fall color, senescence)
+
+See **GETTING_STARTED.md** (Step 1.1) for full date ranges and selection tips.
+
 ---
 
 ## Output Format

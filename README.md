@@ -33,7 +33,7 @@ Produce **binary maps** (wooded vs non-wooded) from PlanetScope 3B Analytic MS S
 
 **IMPORTANT**: Before labeling, read **[WOODED_AREA_DEFINITION.md](WOODED_AREA_DEFINITION.md)** for the complete definition of "wooded areas" and detailed labeling guidelines.
 
-Label **3-10 scenes** spanning different seasons (e.g., Jan, Apr, Jul, Oct):
+Label **3-10 scenes** spanning different seasons (e.g., one per season at peak: winter ~Jan–Feb, spring ~Apr–May, summer ~Jul–Aug, fall ~Oct; see **GETTING_STARTED.md** for date ranges).
 
 1. Use high-resolution imagery (Google Earth/Maxar, 0.3-0.7m) as reference
 2. Define "wooded" as **trees ≥5m tall** (see definition document for complete criteria)

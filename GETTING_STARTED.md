@@ -12,9 +12,20 @@ Before training, you need to create **reference rasters** (ground truth labels) 
 
 ### 1.1 Select Scenes to Label
 
-Choose **3-10 scenes** spanning different seasons (e.g., January, April, July, October) from your timeseries:
+Choose **3-10 scenes** spanning different seasons from your timeseries:
 - **Goal**: Capture seasonal variation (deciduous vs evergreen, leaf-on vs leaf-off)
 - **Selection criteria**: Cloud-free scenes with good visibility
+
+**Peak of each season (Alabama / Northern Hemisphere):**
+
+| Season  | Approximate date range      | What you capture |
+|---------|-----------------------------|------------------|
+| Winter  | Mid-Jan – mid-Feb (e.g. Jan 20 – Feb 10) | Dormant deciduous, leaf-off; evergreens still green |
+| Spring  | Late Apr – mid-May (e.g. Apr 25 – May 10) | Green-up, flowering; strong contrast with winter |
+| Summer  | Late Jun – mid-Aug (e.g. Jul 15 – Aug 1) | Full leaf-on, peak biomass; best for forest vs grassland |
+| Fall    | Mid-Oct – early Nov (e.g. Oct 15 – Oct 30) | Fall color, senescence; before full leaf-off |
+
+Aim for at least one scene (or two, e.g. same day with wider extent) within each season’s window. Use your timeseries metadata or `rank_scenes.py` to pick the clearest (lowest cloud) scene in each window.
 
 ### 1.2 Download Selected Scenes Locally (for labeling)
 
